@@ -12,6 +12,7 @@ Everything is done with the `jadivcode` command.
 | `jadivcode libs GUI` | Show every command of one library |
 | `jadivcode repl` | Try statements one at a time |
 | `jadivcode explain file.jdv` | Ask the optional [AI helper](ai.md) |
+| `jadivcode ide` | Open the [JadivCode IDE](ide.md), when it is installed |
 | `jadivcode --version` | Show the installed version |
 
 ## run

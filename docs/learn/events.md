@@ -9,17 +9,13 @@ when it happens.
 ```text
 Import GUI
 
-Define Window = GUI Window #1
-Define WindowWrite = GUI Write {} on Window #1
-Define ButtonPress = GUI Read Button {} on Window #1
-Start Window
+Define Message = GUI Text "Press the button" at 20, 20
+Define Go = GUI Button "Press me" at 20, 60
 
-WindowWrite Button "X = 10, Y = 10" "B01" = Press me
-On ButtonPress "B01" "WindowWrite Text "X = 10, Y = 50" "T01" = Pressed"
+On Go "Set Message = Pressed"
 ```
 
-The line reads: *on a press of button B01, run the statement in quotes.*
-Leave out `"B01"` to react to every button.
+The last line reads: *when Go is used, run the statement in quotes.*
 
 You may add `Else loop` at the end to say "otherwise keep waiting". It is
 optional, because waiting is what JadivCode does anyway.
@@ -29,20 +25,20 @@ optional, because waiting is what JadivCode does anyway.
 ```text
 Define Clicks = 0
 
-On ButtonPress "B01"
+On Go
     Set Clicks = Clicks + 1
-    WindowWrite Text "T01" = Pressed {Clicks} times
+    Set Message = Pressed {Clicks} times
 End
 ```
 
 ## The Event value
 
-Inside `On`, the name `Event` holds what happened: the id of the button,
-the text that was typed, the state of a pin or the data of a webhook.
+Inside `On`, the name `Event` holds what happened: the text that was
+typed, the new state of a pin, the data of a webhook.
 
 ```text
-Define Typed = GUI Read Input {} on Window #1
-On Typed "I01" "Write = You typed {Event}"
+Define Field = GUI Input at 20, 100
+On Field "Set Message = You typed {Event}"
 ```
 
 ## When does the program end?
@@ -51,12 +47,12 @@ A program with an open window, a running web page or a webhook server keeps
 running after its last line and waits for events. It ends when the window
 is closed, when a `Stop` statement runs, or when you press ++ctrl+c++.
 
-## Events from other libraries
+## What can be used with On
 
-| Event | Example |
+| Thing | Example |
 |---|---|
-| A pin changes | `On Button Pressed "Write = click"` ([GPIO](../libraries/gpio.md)) |
-| A web page button | `On Click "B01" "Set Lamp = ON"` ([WebUI](../libraries/webui.md)) |
-| A webhook arrives | `On Hook "/lamp" "Write = {Event}"` ([Web](../libraries/web.md)) |
+| A window or web page item | `On Go "Write = click"` ([GUI](../libraries/gui.md), [WebUI](../libraries/webui.md)) |
+| An input pin | `On Button Pressed "Write = click"` ([GPIO](../libraries/gpio.md)) |
+| A webhook | `On Hook "/lamp" "Write = {Event}"` ([Web](../libraries/web.md)) |
 
 Next: [when things go wrong](errors.md).

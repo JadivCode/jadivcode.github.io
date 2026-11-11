@@ -39,10 +39,16 @@ jadivcode run lamp.jdv
 - **Safety checks built in.** JadivCode warns when a program contains a
   password, sends data unencrypted or opens itself to the network.
 
+## Prefer the mouse?
+
+The [JadivCode IDE](tools/ide.md) lets you build a program by connecting
+blocks and design windows and web pages by dragging items into place.
+
 ## Start here
 
 1. [Install JadivCode](install.md)
 2. [Write your first program](learn/first-program.md)
 3. Keep the [cheat sheet](cheatsheet.md) open while you learn
+4. Look things up in the [language reference](reference.md)
 
 JadivCode runs on Linux and is free software under the MIT License.

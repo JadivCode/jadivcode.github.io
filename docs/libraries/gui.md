@@ -18,16 +18,16 @@ GUI Title = Counter
 GUI Size = 260x150
 
 Define Message = GUI Text "Count: 0" at 20, 20
-Define Add = GUI Button "Add one" at 20, 70
+Define More = GUI Button "Add one" at 20, 70
 
 Define Count = 0
-On Add
+On More
     Set Count = Count + 1
     Set Message = Count: {Count}
 End
 ```
 
-Every item gets a **name** (`Message`, `Add`). You then use the name like
+Every item gets a **name** (`Message`, `More`). You then use the name like
 any other value: `Set` changes it, `{Name}` reads it, `On` reacts to it.
 
 The window opens by itself as soon as the program has nothing else to do,

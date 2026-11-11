@@ -35,46 +35,48 @@ File Write "notes.txt" = Remember the milk
 
 ```text
 Define Lamp = GPIO #17
-Define Window = GUI Window #1
+Define Go = GUI Button "Press me"
 ```
 
 A named thing is then used like any other value:
 
 ```text
 Set Lamp = ON
-Start Window
 If Lamp = ON then Write = The lamp is on
 ```
 
 The `#` sign gives a thing its number: pin 17, window 1, port 8090.
 
+## Things
+
+A named thing keeps working after it is created. Every thing understands
+the same few statements:
+
+| Statement | Meaning | Example |
+|---|---|---|
+| `Set Name = value` | change it | `Set Lamp = ON`, `Set Hello = New text` |
+| `Set Name Property = value` | change one property | `Set Hello Color = red` |
+| `{Name}` | read it | `{Lamp}`, `{Field}` |
+| `On Name` | react to it | `On Go "Write = click"` |
+| `Start Name`, `Stop Name` | start, stop or remove it | `Stop Server` |
+
 ## Shortcuts
 
-Some commands are long:
+Some library commands are long. `Define` can turn the fixed part into a
+shortcut. Put `{}` where the changing part goes:
 
 ```text
-GUI Write Button "X = 10, Y = 10" "B01" on Window #1 = Press me
-```
-
-`Define` can turn the fixed part into a shortcut. Put `{}` where the
-changing part goes:
-
-```text
-Define WindowWrite = GUI Write {} on Window #1
+Define Hook = Web Read Hook {} on Server #8090
 ```
 
 Now the same command is shorter:
 
 ```text
-WindowWrite Button "X = 10, Y = 10" "B01" = Press me
-WindowWrite Text "X = 10, Y = 50" "T01" = Hello
+On Hook "/lamp" "Write = lamp"
+On Hook "/door" "Write = door"
 ```
 
-Shortcuts work for getting values and for events too:
-
-```text
-Define WindowRead = GUI Read Input {} on Window #1
-Write = You typed {WindowRead "I01"}
-```
+A shortcut works wherever the long command works: as a statement, inside
+`{ }` and after `On`.
 
 Next: [events](events.md).

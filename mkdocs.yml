@@ -63,8 +63,11 @@ nav:
       - System: libraries/system.md
       - Time: libraries/time.md
   - Tools:
+      - JadivCode IDE: tools/ide.md
       - Command line: tools/cli.md
       - The checker: tools/checker.md
       - AI helper: tools/ai.md
+      - VS Code: tools/vscode.md
   - Cheat sheet: cheatsheet.md
+  - Language reference: reference.md
   - Writing safe programs: security.md

@@ -1,6 +1,6 @@
 # GUI
 
-Desktop windows with buttons, text, inputs, checkboxes and sliders.
+Desktop windows with texts, buttons, inputs, checkboxes and sliders.
 
 ```text
 Import GUI
@@ -14,94 +14,167 @@ windows are simulated and every change is printed.
 ```text
 Import GUI
 
-Define Window = GUI Window #1
-Define WindowWrite = GUI Write {} on Window #1
-Define WindowSet = GUI Set {} on Window #1
-Define ButtonPress = GUI Read Button {} on Window #1
+GUI Title = Counter
+GUI Size = 260x150
 
-WindowSet Title = Test app
-WindowSet Size = 320x160
-Start Window
+Define Message = GUI Text "Count: 0" at 20, 20
+Define More = GUI Button "Add one" at 20, 70
 
-WindowWrite Text "X = 20, Y = 20" "T01" = Press the button
-WindowWrite Button "X = 20, Y = 60" "B01" = Press me
-
-On ButtonPress "B01" "WindowWrite Text "T01" = Pressed"
+Define Count = 0
+On More
+    Set Count = Count + 1
+    Set Message = Count: {Count}
+End
 ```
 
-The three `Define ... {}` lines are [shortcuts](../learn/libraries.md#shortcuts).
-You can always write the long form instead:
-`GUI Write Text "T01" on Window #1 = Hello`.
+Every item gets a **name** (`Message`, `More`). You then use the name like
+any other value: `Set` changes it, `{Name}` reads it, `On` reacts to it.
 
-## Putting items in a window
+The window opens by itself as soon as the program has nothing else to do,
+and the program runs until the window is closed.
+
+## Creating items
 
 ```text
-WindowWrite <Kind> "<position>" "<id>" = <text or value>
+Define <Name> = GUI <Kind> <text or value> at <x>, <y> size <width>, <height>
 ```
 
-- **Kind**: `Text`, `Button`, `Input`, `Checkbox`, `Slider` or `Image`.
-- **Position** (optional): `"X = 10, Y = 20"`, measured in pixels from the
-  top left corner. Add `W` and `H` for a width and height:
-  `"X = 10, Y = 20, W = 200, H = 30"`. Without a position, items are
-  stacked from top to bottom.
-- **Id**: your own name for the item, such as `"B01"`. Writing to an id
-  that already exists changes that item.
+| Kind | Example | The value is |
+|---|---|---|
+| `Text` | `Define Hello = GUI Text "Hello" at 20, 20` | the text shown |
+| `Button` | `Define Go = GUI Button "Press me" at 20, 60` | the label |
+| `Input` | `Define Field = GUI Input at 20, 100 size 200, 28` | the text in the box (optional) |
+| `Checkbox` | `Define Agree = GUI Checkbox "I agree" at 20, 140` | the label |
+| `Slider` | `Define Level = GUI Slider 50 at 20, 180` | the position, 0 to 100 |
+| `Image` | `Define Logo = GUI Image "logo.png" at 20, 230` | a PNG or GIF file |
 
-| Kind | The value after `=` is |
-|---|---|
-| `Text` | the text shown |
-| `Button` | the label |
-| `Input` | the text in the box |
-| `Checkbox` | the label |
-| `Slider` | the position (0 to 100) |
-| `Image` | the path of a PNG or GIF file |
+- `at x, y` is the position in pixels from the top left corner.
+- `size width, height` is optional.
+- Without `at`, items are stacked from top to bottom.
 
-## Changing the window and its items
+## Changing items
 
 ```text
-WindowSet Title = My app          // the window
-WindowSet "T01" Color = red       // one item
+Set Hello = New text          // text, label or value
+Set Hello Color = red         // one property
+Stop Hello                    // remove the item
 ```
 
-| Window property | Example |
-|---|---|
-| `Title` | `My app` |
-| `Size` | `400x300` |
-| `Width`, `Height` | `400` |
-| `Color` | `white`, `#202020` |
-
-| Item property | Meaning |
+| Property | Meaning |
 |---|---|
 | `Text` | text or label |
-| `Value` | content of an input, checkbox (`ON`/`OFF`) or slider |
+| `Value` | content of an input, checkbox (`ON` / `OFF`) or slider |
 | `Color`, `Background` | a color name or `#rrggbb` |
 | `Size` | text size |
 | `Enabled` | `OFF` greys the item out |
 | `X`, `Y`, `W`, `H` | position and size |
-| `Min`, `Max` | range of a slider (set before the window starts) |
+| `Min`, `Max` | range of a slider |
 
-## Reading and reacting
+## Reading items
+
+`{Name}` gives what the item holds:
+
+| Kind | `{Name}` is |
+|---|---|
+| `Text`, `Button` | its text |
+| `Input` | what the user typed |
+| `Checkbox` | `ON` or `OFF` |
+| `Slider` | its position |
 
 ```text
-Define WindowRead = GUI Read Input {} on Window #1
-Write = {WindowRead "I01"}
+On Go
+    Write = You typed {Field} and the slider is at {Level}
+End
 ```
 
-| Read | As a value | As an event (`On`) |
+## Reacting to items
+
+| `On` an item of kind | Runs when | `{Event}` is |
 |---|---|---|
-| `Read Button "B01"` | `ON` if it was the last button pressed | a click; `{Event}` is the id |
-| `Read Input "I01"` | the typed text | Enter was pressed; `{Event}` is the text |
-| `Read Checkbox "C01"` | `ON` or `OFF` | it was toggled |
-| `Read Slider "S01"` | the position | it was moved |
+| `Button` | it is clicked | the name of the button |
+| `Input` | Enter is pressed in it | the typed text |
+| `Checkbox` | it is toggled | `ON` or `OFF` |
+| `Slider` | it is moved | the new position |
 
-Leave out the id in an event to react to every item of that kind.
+```text
+On Field "Set Hello = You typed {Event}"
 
-## Other commands
+On Level
+    Set Hello = Slider at {Event}
+End
+```
 
-| Command | Meaning |
+`GUI Press "Go"` clicks an item from the program.
+
+## The window
+
+| Line | Meaning |
 |---|---|
-| `Start Window`, `Stop Window` | show, close |
-| `GUI Remove "T01" on Window #1` | remove an item |
-| `GUI Press "B01" on Window #1` | click a button from the program |
+| `GUI Title = My app` | title bar text |
+| `GUI Size = 400x300` | width x height in pixels |
+| `GUI Width = 400`, `GUI Height = 300` | one side only |
+| `GUI Color = white` | background color |
 
-The program keeps running until every window is closed.
+## More than one window
+
+Give further windows a name and add `on Window #2` to their items:
+
+```text
+Define Second = GUI Window #2
+Set Second Title = Settings
+Define Close = GUI Button "Close" at 20, 20 on Window #2
+
+On Close "Stop Second"
+```
+
+`Start Second` shows a window immediately and `Stop Second` closes it.
+
+## A calculator
+
+```text
+Import GUI
+Import Math
+
+GUI Title = Calculator
+GUI Size = 320x150
+
+Define Hint = GUI Text "Type a calculation and press Enter:" at 20, 15
+Define Field = GUI Input at 20, 45 size 220, 28
+Define Result = GUI Text "" at 20, 90
+
+On Field
+    Define Answer = {Math Event}
+    If Success = "None"
+        Set Result = That is not a calculation
+    Else
+        Set Result = {Event} = {Answer}
+    End
+End
+```
+
+## Long form (by id)
+
+Items can also be created and used by an id in quotes, without names.
+Programs written for the first version of JadivCode use this form, and it
+keeps working.
+
+| Long form | Meaning |
+|---|---|
+| `GUI Write Button "X = 10, Y = 10" "B01" on Window #1 = Press me` | create or change an item |
+| `GUI Set "B01" Color on Window #1 = red` | change a property |
+| `GUI Set Title on Window #1 = My app` | change the window |
+| `{GUI Read Input "I01" on Window #1}` | read an item |
+| `On GUI Read Button "B01" on Window #1 "Write = pressed"` | an event |
+| `GUI Remove "B01" on Window #1` | remove an item |
+
+The position string accepts `X`, `Y`, `W` and `H`. A long form can be
+shortened with a [shortcut](../learn/libraries.md#shortcuts):
+
+```text
+Define WindowWrite = GUI Write {} on Window #1
+WindowWrite Button "X = 10, Y = 10" "B01" = Press me
+```
+
+!!! tip "Design windows with the mouse"
+    The [JadivCode IDE](../tools/ide.md#designers) has a designer that
+    writes these lines for you.

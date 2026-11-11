@@ -69,23 +69,25 @@ End
 Write = {Double(21)}
 ```
 
-## Libraries, things and shortcuts
+## Libraries and things
 
 | Write this | To do this |
 |---|---|
 | `Define Lamp = GPIO #17` | Create a named thing |
+| `Define Go = GUI Button "Press me" at 20, 60` | Create a window item |
 | `Set Lamp = ON` | Change it |
+| `Set Go Color = red` | Change one property |
 | `{Lamp}` | Read it |
-| `Start Window`, `Stop Window` | Start or stop it |
-| `Set Server Host = 0.0.0.0` | Set a property of it |
-| `Define WinWrite = GUI Write {} on Window #1` | Make a shortcut; `{}` is the changing part |
+| `On Go "Write = click"` | React to it |
+| `Start Server`, `Stop Server` | Start, stop or remove it |
+| `Define Hook = Web Read Hook {} on Server #8090` | Make a shortcut; `{}` is the changing part |
 
 ## Events
 
 ```text
-On ButtonPress "B01" "Write = pressed"
+On Go "Write = pressed"
 
-On ButtonPress "B01"
+On Go
     Write = pressed {Event}
 End
 ```

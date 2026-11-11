@@ -1,6 +1,6 @@
 # Install
 
-JadivCode runs on Linux (including Raspberry Pi OS) and needs Python 3.9
+JadivCode runs on Linux (including Raspberry Pi OS) and needs Python 3.10
 or newer, which almost every Linux system already has.
 
 ## Install or update

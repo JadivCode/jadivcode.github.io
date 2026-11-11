@@ -45,4 +45,4 @@ jadivcode run lamp.jdv
 2. [Write your first program](learn/first-program.md)
 3. Keep the [cheat sheet](cheatsheet.md) open while you learn
 
-JadivCode runs on Linux and is free software under the Apache License 2.0.
+JadivCode runs on Linux and is free software under the MIT License.

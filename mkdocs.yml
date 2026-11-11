@@ -1,0 +1,70 @@
+site_name: JadivCode
+site_description: A super simple programming language for Linux
+site_url: https://jadivcode.github.io/
+repo_url: https://github.com/JadivCode/jadivcode
+repo_name: JadivCode/jadivcode
+copyright: Copyright &copy; 2026 JadivCode. Documentation licensed under the MIT License.
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.footer
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.keys
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+
+nav:
+  - Home: index.md
+  - Install: install.md
+  - Learn:
+      - 1. Your first program: learn/first-program.md
+      - 2. Values and text: learn/values.md
+      - 3. Decisions: learn/decisions.md
+      - 4. Loops: learn/loops.md
+      - 5. Lists: learn/lists.md
+      - 6. Functions: learn/functions.md
+      - 7. Libraries and shortcuts: learn/libraries.md
+      - 8. Events: learn/events.md
+      - 9. When things go wrong: learn/errors.md
+  - Libraries:
+      - GPIO: libraries/gpio.md
+      - Math: libraries/math.md
+      - GUI: libraries/gui.md
+      - WebUI: libraries/webui.md
+      - Web: libraries/web.md
+      - File: libraries/file.md
+      - System: libraries/system.md
+      - Time: libraries/time.md
+  - Tools:
+      - Command line: tools/cli.md
+      - The checker: tools/checker.md
+      - AI helper: tools/ai.md
+  - Cheat sheet: cheatsheet.md
+  - Writing safe programs: security.md

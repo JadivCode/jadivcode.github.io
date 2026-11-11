@@ -25,7 +25,7 @@ jadivcode --version
     ```bash
     echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
     ```
-You can optionally use the graphical IDE (recommended)
+You can optionally download the graphical IDE too (recommended)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/JadivCode/jadivcode-ide/main/install.sh | bash

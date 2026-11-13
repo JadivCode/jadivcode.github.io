@@ -144,6 +144,26 @@ those lines where they are:
 
 A web page places items from top to bottom in the order you arrange them.
 
+## Updates
+
+**Help → Check for updates** looks for a newer JadivCode and JadivCode
+IDE. When one exists, the IDE shows the old and new version numbers and
+asks before it installs anything. The update runs the same installers as
+the first installation and shows their output on the **Output** tab.
+Restart the IDE afterwards.
+
+The IDE also looks once when it starts, quietly in the background. You
+only hear about it when there is something new. Switch this off with
+**Help → Check for updates at start**.
+
+- The check downloads two small files from GitHub. Nothing about you or
+  your programs is sent.
+- If you say no, the check at start does not ask about the same version
+  again. **Check for updates** in the menu always asks.
+- A copy that was not installed with the installer (for example from Code
+  Master or a git folder) is only reported; update it the way you
+  installed it.
+
 ## AI helper
 
 **Tools → Ask AI** explains the problems in plain words. It is optional
